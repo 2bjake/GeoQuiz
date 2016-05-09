@@ -16,6 +16,7 @@ public class CheatActivity extends AppCompatActivity {
             "com.bidnerdranch.android.geoquiz.answer_shown";
 
     private boolean mAnswerIsTrue;
+    private boolean mAnswerShown = false;
 
     private TextView mAnswerTextView;
     private Button mShowAnswer;
@@ -38,14 +39,26 @@ public class CheatActivity extends AppCompatActivity {
                 } else {
                     mAnswerTextView.setText(R.string.false_button);
                 }
-                setAnswerShownResult(true);
+                mAnswerShown = true;
+                setAnswerShownResult();
             }
         });
+
+        if (savedInstanceState != null) {
+            mAnswerShown = savedInstanceState.getBoolean(EXTRA_ANSWER_SHOWN, false);
+            setAnswerShownResult();
+        }
     }
 
-    private void setAnswerShownResult(boolean isAnswerShown) {
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(EXTRA_ANSWER_SHOWN, mAnswerShown);
+    }
+
+    private void setAnswerShownResult() {
         Intent data = new Intent();
-        data.putExtra(EXTRA_ANSWER_SHOWN, isAnswerShown);
+        data.putExtra(EXTRA_ANSWER_SHOWN, mAnswerShown);
         setResult(RESULT_OK, data);
     }
 

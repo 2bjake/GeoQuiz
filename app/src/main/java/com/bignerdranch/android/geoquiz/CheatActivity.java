@@ -29,6 +29,9 @@ public class CheatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cheat);
 
+        String levelString = "API level " + Build.VERSION.SDK_INT;
+        ((TextView) findViewById(R.id.version_text_view)).setText(levelString);
+
         mAnswerIsTrue = getIntent().getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false);
 
         mAnswerTextView = (TextView) findViewById(R.id.answer_text_view);
